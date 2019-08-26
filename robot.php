@@ -1,6 +1,5 @@
 <?php
 	class Robot {
-		
 		private $orient;
 		private $posX;
 		private $posY;
@@ -9,17 +8,16 @@
 			
 			// make sure the action = place. I'm being kind and allowing all casing
 			if (strtolower($action) !== 'place') {
-				echo 'First action of robot must be "PLACE" but is '.$action;
-				return false;
+				throw new Exception('First action of robot must be "PLACE" but is '.$action);
 			}
 			
 			// validate x and y
 			if ( !$this->validateCoords( $x, $y ) ) {
-				return false;
+				throw new Exception('Invalid coordinates');
 			}
 			
 			if ( !$this->validateOrientation( $orientation )) {
-				return false;
+				throw new Exception('Invalid orientation');
 			}
 			
 			// set the robot information
@@ -29,7 +27,8 @@
 		}
 		
 		private function validateCoords( $x, $y ) {
-			if ( $x < 0 || $x > 5 || $y < 0 || $y > 5 ) {
+			// 0 based so our 5 x 5 table is actually 0 - 4
+			if ( $x < 0 || $x > 4 || $y < 0 || $y > 4 ) {
 				echo 'Robot is outside of bounds of table';
 				return false;
 			}
@@ -103,7 +102,7 @@
 		public function move() {
 			switch ($this->orient) {
 				case 'north' :
-					if ($this->posY === 5) {
+					if ($this->posY === 4) {
 						return false;
 					} else {
 						$this->posY++;
@@ -117,14 +116,14 @@
 					}
 					break;
 				case 'east' :
-					if ($this->posX === 5) {
+					if ($this->posX === 4) {
 						return false;
 					} else {
 						$this->posX++;
 					}
 					break;
 				case 'west' :
-					if ($this->posX === 5) {
+					if ($this->posX === 0) {
 						return false;
 					} else {
 						$this->posX--;

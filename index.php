@@ -13,6 +13,7 @@
 	
 	// make sure there are 2 "details"
 	if ( count($data) !== 2 ) {
+		fclose($fh);
 		echo 'First instruction is not formatted correctly';
 		exit;
 	}		
@@ -24,12 +25,20 @@
 	
 	// make sure we have x, y & "Facing" details
 	if ( count($location) !== 3 ) {
+		fclose($fh);
 		echo 'First instruction is missing an x, y or "facing" detail';
 		exit;
 	}
 	
 	// instantiate our robot
-	$robot = new Robot( trim($action), trim($location[0]), trim($location[1]), trim($location[2]) );
+	try {
+		$robot = new Robot( trim($action), trim($location[0]), trim($location[1]), trim($location[2]) );
+	} catch (Exception $e) {
+		fclose($fh);
+		// failed to create the robot class
+		echo $e->getMessage();
+		exit;
+	}
 	
 	while (($instruction = fgets($fh)) !== false) {
 		// I'm being "polite" and handling the casing of the instruction
