@@ -20,12 +20,7 @@
 		*/
 		public function testFirstAction()
 		{
-			$action = 'PLACE';
-			$x = 0;
-			$y = 0;
-			$f = 'North';	
-			
-			$this->expectException( new Robot( $action, $x, $y, $f ) );
+			$this->assertSame('NORTH 0,0', $this->robot->report());
 			
 			// some ppl prefer 1 test per function. I'm just checking both cases here.
 			$action = 'MOVE';
@@ -50,10 +45,6 @@
 			$x = 0;
 			$y = -1;
 			$this->expectException( new Robot( $action, $x, $y, $f ) );
-			
-			$x = 0;
-			$y = '0';
-			$this->assertTrue( new Robot( $action, $x, $y, $f ) );
 		}
 		
 		public function testOrientation() {
@@ -87,6 +78,8 @@
 		}
 		
 		public function testRemainOnTable() {
+			$this->robot->turn('left');
+			$this->assertFalse( $this->robot->move() );
 		}
 	}
 ?>
