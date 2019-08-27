@@ -3,6 +3,8 @@ SUMMARY
 
 Thank you for this opportunity to present my code to you. I had a lot of fun with this little project. 
 
+* To run, please just go to the "root" location / index.php. 
+* The config.ini file stores the location of the instructions file.
 * PLEASE NOTE: I have not tested my test cases. I don't have phpUnit installed on my Docker image that I was using and decided to spend my time on
 	writing and testing the code rather than testing the test cases. I'm not sure that the "expectException" works as I hope.
 * My solution is perhaps a little over engineered by using a class for the robot, but I wanted to do this to demonstrate a bit more of my skills.

@@ -2,8 +2,11 @@
 
 	include 'robot.php';
 
+	// read the location of the instructions file.
+	$ini_array = parse_ini_file ( 'config.ini' );
+	
 	// open the file for reading
-	$fh = fopen('instructions.txt', 'r');
+	$fh = fopen($ini_array['INSTRUCTIONS'], 'r');
 	
 	// read the first line to create the robot
 	$instruction = fgets($fh);
